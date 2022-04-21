@@ -5,6 +5,7 @@
  ### Requerments for the app: ###
  
  #### Critical requirements: ####
+ - [ ] As a user, I want to be able to login, such that I could register my unique parameters
  - [ ] As a user, I want to be able to register my calorie intake, such that I can later compare the data
  - [ ] As a user, I want to be able to view my daily calorie intake, such that I can track changes and optimize my diet
  - [ ] As a user, I want to be able to register my weight, such that I can later see gains or losses
@@ -16,4 +17,4 @@
 #### Low priority requirements: ####
  - [ ] As a user, I want to be able to see recomendations for daily calorie intake
  - [ ] As a user, I want to be able to set a goal to either lose or gain weight
- - [ ] As a user, I want to be able to see my details in other devices via login system
+
