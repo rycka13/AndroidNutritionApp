@@ -12,12 +12,12 @@ public class Food {
     private double gramsConsumed;
     private LocalDate date;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    //@RequiresApi(api = Build.VERSION_CODES.O)
     public Food(String foodName, double caloriesPer100Grams, double gramsConsumed){
         this.foodName = foodName;
         this.caloriesPer100Grams = caloriesPer100Grams;
         this.gramsConsumed = gramsConsumed;
-        this.date = LocalDate.now();
+        //this.date = LocalDate.now();
     }
 
     public double getGramsConsumed() {

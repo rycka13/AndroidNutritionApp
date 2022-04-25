@@ -17,6 +17,7 @@ public interface Model {
     char getGender();
     void setGoal(char goal);
     char getGoal();
+    String getUserNumber();
 
 
 }

@@ -116,4 +116,9 @@ public class ModelManager implements Model{
     public char getGoal() {
         return user.getGoal();
     }
+
+    @Override
+    public String getUserNumber() {
+        return user.getUserNumber();
+    }
 }

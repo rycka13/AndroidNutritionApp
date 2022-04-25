@@ -3,14 +3,15 @@ package com.rycka13.nutritionapp.model;
 import java.util.ArrayList;
 
 public class User {
+    private String userNumber;
     private String firstName;
     private ArrayList<Food> foods;
     private double weight;
     private char gender;
     private char goal;
 
-    public User(String firstName) {
-        this.firstName = firstName;
+    public User(String userNumber) {
+        this.userNumber = userNumber;
         foods = new ArrayList<>();
     }
 
@@ -56,5 +57,9 @@ public class User {
 
     public void setGoal(char LGweight) {
         this.goal = LGweight;
+    }
+
+    public String getUserNumber() {
+        return userNumber;
     }
 }
