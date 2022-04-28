@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -41,9 +42,20 @@ public class AddFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Food foodToSave = new Food(foodName.getText().toString(),Double.parseDouble(caloriesPer.getText().toString()),Double.parseDouble(grams.getText().toString()), LocalDate.now().toString());
-                databaseInstance.addFood(foodToSave);
-                System.out.println("BUTTON PRESSED");
+                if(foodName.getText().toString().isEmpty() || caloriesPer.getText().toString().isEmpty() || grams.getText().toString().isEmpty()){
+                    Toast.makeText(app.getApplicationContext(),"You forgot to fill in all fields",Toast.LENGTH_SHORT).show();
+                }
+                else if(grams.getText().toString().equals(".")){
+                    Toast.makeText(app.getApplicationContext(),"Dot is not a number sir",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Food foodToSave = new Food(foodName.getText().toString(), Double.parseDouble(caloriesPer.getText().toString()), Double.parseDouble(grams.getText().toString()), LocalDate.now().toString());
+                    databaseInstance.addFood(foodToSave);
+                    Toast.makeText(app.getApplicationContext(), "Food added", Toast.LENGTH_SHORT).show();
+                    foodName.setText("");
+                    caloriesPer.setText("");
+                    grams.setText("");
+                }
             }
         });
 
