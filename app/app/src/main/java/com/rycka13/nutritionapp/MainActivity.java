@@ -1,10 +1,12 @@
 package com.rycka13.nutritionapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private View view;
     private DatabaseInstance dbInstance;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +81,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
                 dbInstance = DatabaseInstance.getInstance(user.getUid());
+//                dbInstance.getFood().observe(this, foods -> {
+//                    if (foods != null) {
+//                        System.out.println(foods.get(0).toString());
+//                    }
+//
+//                });
             } else
                 startLoginActivity();
         });
+
+
     }
 
     private void startLoginActivity() {

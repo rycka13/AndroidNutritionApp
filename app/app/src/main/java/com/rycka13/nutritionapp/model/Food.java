@@ -10,14 +10,15 @@ public class Food {
     private String foodName;
     private double caloriesPer100Grams;
     private double gramsConsumed;
-    private LocalDate date;
+    private String dateString;
 
-    //@RequiresApi(api = Build.VERSION_CODES.O)
-    public Food(String foodName, double caloriesPer100Grams, double gramsConsumed){
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Food(String foodName, double caloriesPer100Grams, double gramsConsumed, String dateString){
         this.foodName = foodName;
         this.caloriesPer100Grams = caloriesPer100Grams;
         this.gramsConsumed = gramsConsumed;
-        //this.date = LocalDate.now();
+        this.dateString = dateString;
     }
 
     public double getGramsConsumed() {
@@ -44,7 +45,17 @@ public class Food {
         this.gramsConsumed = gramsConsumed;
     }
 
-    public LocalDate getDate() {
-        return date;
+    @Override
+    public String toString() {
+        return "Food{" +
+                "foodName='" + foodName + '\'' +
+                ", caloriesPer100Grams=" + caloriesPer100Grams +
+                ", gramsConsumed=" + gramsConsumed +
+                ", date=" + dateString +
+                '}';
+    }
+
+    public String getDate() {
+        return dateString;
     }
 }

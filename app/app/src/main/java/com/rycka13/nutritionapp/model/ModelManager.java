@@ -90,7 +90,7 @@ public class ModelManager implements Model{
         int index=userFoods.size()-1;
         double consumedCalories = 0;
 
-        while (userFoods.get(index).getDate().isAfter(firstDate)){
+        while (LocalDate.parse(userFoods.get(index).getDate()).isAfter(firstDate)){
             consumedCalories+= userFoods.get(index).getCaloriesPer100Grams()/100 * userFoods.get(index).getGramsConsumed();
             index--;
         }

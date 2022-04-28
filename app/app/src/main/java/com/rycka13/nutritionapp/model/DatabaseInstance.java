@@ -1,18 +1,33 @@
 package com.rycka13.nutritionapp.model;
 
+import android.os.Build;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DatabaseInstance{
@@ -20,6 +35,9 @@ public class DatabaseInstance{
     private String userId;
     private FirebaseFirestore db;
     private static DatabaseInstance instance;
+    private ArrayList<Food> extractedFoods;
+    private Map<String,Object> hashMap;
+    FoodWrapper fr;
 
     private DatabaseInstance(String userId){
         this.userId = userId;
@@ -27,6 +45,7 @@ public class DatabaseInstance{
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static DatabaseInstance getInstance(String userId) {
         if(instance == null){
             instance = new DatabaseInstance(userId);
@@ -35,16 +54,20 @@ public class DatabaseInstance{
         return instance;
     }
 
+    public static DatabaseInstance getInstance() {
 
+        return instance;
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean addUser() {
         ArrayList<Food> foods= new ArrayList<Food>();
-        foods.add(new Food("Pie",500,1));
-        foods.add(new Food("Pizza",500,1));
-        HashMap<String,ArrayList<Food>> map = new HashMap<String,ArrayList<Food>>() {
-        };
+
+        HashMap<String,ArrayList<Food>> map = new HashMap<>();
 
         map.put(userId,foods);
-        db.collection("users").add(map);
+        db.collection("users").document(userId).set(map);
 //                .addOnSuccessListener(documentReference -> {
 //
 //                })
@@ -55,6 +78,7 @@ public class DatabaseInstance{
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean findUser() {
 
         DocumentReference docIdRef = db.collection("users").document(userId); //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection
@@ -72,27 +96,63 @@ public class DatabaseInstance{
             }
         });
 
-//        try{
-//            db.collection("users").document(userId)
-//        }
-//        catch (NullPointerException e){
-//            addUser();
-//        }
-//        return true;
 
         return true;
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean addFood(Food food) {
-        return false;
+
+
+        db.collection("users").addSnapshotListener((value, error) -> {
+            for(DocumentChange dc : value.getDocumentChanges()){
+                if(dc.getType() == DocumentChange.Type.ADDED){
+
+                    Map<String,Object> hashMap;
+                    hashMap = dc.getDocument().getData();
+                    HashMap<String,Object> tempMap = (HashMap<String, Object>) hashMap;
+                    ArrayList<HashMap> foods = (ArrayList<HashMap>) tempMap.get(userId);
+                    ArrayList<Food> foodsList = new ArrayList<>();
+                    for (int i = 0; i<foods.size(); i++){
+                        Food foodExtract = new Food((String) foods.get(i).get("foodName"),(Double) foods.get(i).get("caloriesPer100Grams"),(Double)foods.get(i).get("gramsConsumed"),(String) foods.get(i).get("date"));
+                        foodsList.add(foodExtract);
+                    }
+                    foodsList.add(food);
+                    HashMap<String,ArrayList<Food>> map = new HashMap<>();
+                    map.put(userId,foodsList);
+
+                    db.collection("users").document(userId).set(map);
+                }
+            }
+        });
+
+        return true;
     }
 
     public boolean removeFood(Food food) {
-        return false;
+        db.collection("users").addSnapshotListener((value, error) -> {
+            for(DocumentChange dc : value.getDocumentChanges()){
+                if(dc.getType() == DocumentChange.Type.ADDED){
+                    Map<String,Object> hashMap;
+                    hashMap = dc.getDocument().getData();
+                    ArrayList<Food> foods = (ArrayList<Food>) hashMap.get(userId);
+                    foods.remove(food);
+                    HashMap<String,ArrayList<Food>> map = new HashMap<>();
+                    map.put(userId,foods);
+
+                    db.collection("users").document(userId).set(map);
+                }
+            }
+        });
+        return true;
     }
 
-    public ArrayList<Food> getFood() {
-        return null;
+    public LiveData<ArrayList<Food>> getFood() {
+
+        DocumentReference docRef = db.collection("users").document(userId);
+        fr = new FoodWrapper(docRef,userId);
+
+        return fr.getFoods();
     }
 }
