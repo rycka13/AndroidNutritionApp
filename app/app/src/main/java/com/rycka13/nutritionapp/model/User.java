@@ -3,39 +3,19 @@ package com.rycka13.nutritionapp.model;
 import java.util.ArrayList;
 
 public class User {
-    private String userNumber;
-    private String firstName;
-    private ArrayList<Food> foods;
-    private double weight;
-    private char gender;
-    private char goal;
+    private Double weight;
+    private Double height;
+    private String gender;
+    private Double limit;
 
-    public User(String userNumber) {
-        this.userNumber = userNumber;
-        foods = new ArrayList<>();
+    public User() {
+        weight = null;
+        height = null;
+        gender = null;
+        limit = null;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public ArrayList<Food> getFoods() {
-        return foods;
-    }
-
-    public void addFood(Food food) {
-        foods.add(food);
-    }
-
-    public void setFirstName(String name) {
-        firstName = name;
-    }
-
-    public void removeFood(Food food) {
-        foods.remove(food);
-    }
-
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
@@ -43,23 +23,27 @@ public class User {
         this.weight = weight;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public char getGoal() {
-        return goal;
+    public Double getHeight() {
+        return height;
     }
 
-    public void setGoal(char LGweight) {
-        this.goal = LGweight;
+    public void setHeight(double height) {
+        this.height = height;
     }
 
-    public String getUserNumber() {
-        return userNumber;
+    public Double getLimit() {
+        return limit;
+    }
+
+    public void setLimit(double limit) {
+        this.limit = limit;
     }
 }

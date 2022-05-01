@@ -12,4 +12,15 @@
     <string name="grams_of_food_consumed">Grams of food consumed</string>
     <string name="grams">Grams</string>
     <string name="add_calories">ADD CALORIES</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="not_set">Not set</string>
+    <string name="gender">Gender</string>
+    <string name="calorie_limit">Calorie limit</string>
+    <string name="change_your_parameters">Change your parameters</string>
+    <string name="set">SET</string>
+    <string name="enter_your_calorie_limit">Enter your calorie limit</string>
+    <string name="enter_your_gender">Enter your gender</string>
+    <string name="enter_your_current_height">Enter your current height</string>
+    <string name="enter_your_current_weight">Enter your current weight</string>
 </resources>

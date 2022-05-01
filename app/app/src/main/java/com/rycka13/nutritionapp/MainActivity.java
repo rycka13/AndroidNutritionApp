@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.rycka13.nutritionapp.model.DatabaseInstance;
 import com.rycka13.nutritionapp.model.Model;
 
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener{
 
     BottomNavigationView bottomNavigationView;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
                 dbInstance = DatabaseInstance.getInstance(user.getUid());
+//                model = ModelManager.getInstance(user);
 //                dbInstance.getFood().observe(this, foods -> {
 //                    if (foods != null) {
 //                        System.out.println(foods.get(0).toString());

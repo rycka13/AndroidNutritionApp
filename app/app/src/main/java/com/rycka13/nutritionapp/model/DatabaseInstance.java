@@ -35,9 +35,8 @@ public class DatabaseInstance{
     private String userId;
     private FirebaseFirestore db;
     private static DatabaseInstance instance;
-    private ArrayList<Food> extractedFoods;
-    private Map<String,Object> hashMap;
-    FoodWrapper fr;
+    private FoodWrapper fr;
+    private UserWrapper uw;
 
     private DatabaseInstance(String userId){
         this.userId = userId;
@@ -65,15 +64,18 @@ public class DatabaseInstance{
         ArrayList<Food> foods= new ArrayList<Food>();
 
         HashMap<String,ArrayList<Food>> map = new HashMap<>();
+        HashMap<String,Object> mapParameters = new HashMap<>();
 
         map.put(userId,foods);
+
+        mapParameters.put("weight",0.0);
+        mapParameters.put("height",0.0);
+        mapParameters.put("limit",2000.0);
+        mapParameters.put("gender","Unknown");
+
         db.collection("users").document(userId).set(map);
-//                .addOnSuccessListener(documentReference -> {
-//
-//                })
-//                .addOnFailureListener(e -> {
-//
-//                });
+        db.collection("userParameters").document(userId).set(mapParameters);
+
         return true;
     }
 
@@ -95,7 +97,6 @@ public class DatabaseInstance{
 
             }
         });
-
 
         return true;
     }
@@ -154,5 +155,26 @@ public class DatabaseInstance{
         fr = new FoodWrapper(docRef,userId);
 
         return fr.getFoods();
+    }
+
+    public boolean setUserParameters(double weight,double height,double limit,String gender){
+        HashMap<String,Object> map = new HashMap<>();
+
+        map.put("weight",weight);
+        map.put("height",height);
+        map.put("limit",limit);
+        map.put("gender",gender);
+        db.collection("userParameters").document(userId).set(map);
+
+        return true;
+    }
+
+    public LiveData<User> getUserData(){
+
+        DocumentReference docRef = db.collection("userParameters").document(userId);
+
+        uw = new UserWrapper(docRef,userId);
+
+        return uw;
     }
 }
