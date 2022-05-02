@@ -86,7 +86,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
-                dbInstance = DatabaseInstance.getInstance(user.getUid());
+                dbInstance = DatabaseInstance.getInstance();
+                dbInstance.setInstance(user.getUid());
+
 //                model = ModelManager.getInstance(user);
 //                dbInstance.getFood().observe(this, foods -> {
 //                    if (foods != null) {

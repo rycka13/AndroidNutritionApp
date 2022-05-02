@@ -42,7 +42,7 @@ public class DatabaseInstance{
         this.userId = userId;
         db = FirebaseFirestore.getInstance();
     }
-
+//reset on sign out!!!!!!!!!!!!
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static DatabaseInstance getInstance(String userId) {
@@ -58,6 +58,12 @@ public class DatabaseInstance{
         return instance;
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setInstance(String userId){
+        this.userId =userId;
+        findUser();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean addUser() {

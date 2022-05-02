@@ -28,6 +28,13 @@ public class UserWrapper extends LiveData<User> {
             hashMap = value.getData();
             HashMap<String,Object> tempMap = (HashMap<String, Object>) hashMap;
             user = new User();
+            if(tempMap==null){
+                tempMap = new HashMap<String, Object>();
+                tempMap.put("weight",0.0);
+                tempMap.put("height",0.0);
+                tempMap.put("limit",2000.0);
+                tempMap.put("gender","Unknown");
+            }
             if(!tempMap.isEmpty()){
                 for (Map.Entry<String,Object> set : tempMap.entrySet() ){
                     switch (set.getKey()){

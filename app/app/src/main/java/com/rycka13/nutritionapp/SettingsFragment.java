@@ -55,13 +55,13 @@ public class SettingsFragment extends Fragment {
                             userOld.setWeight(userParameters.getWeight());
                         }
                         else{
-                            userOld.setWeight(Double.parseDouble(weightT.toString()));
+                            userOld.setWeight(Double.parseDouble(weightT.getText().toString()));
                         }
                         if(heightT.getText().toString().isEmpty()){
                             userOld.setHeight(userParameters.getHeight());
                         }
                         else{
-                            userOld.setHeight(Double.parseDouble(heightT.toString()));
+                            userOld.setHeight(Double.parseDouble(heightT.getText().toString()));
                         }
                         if(genderT.getText().toString().isEmpty()){
                             userOld.setGender(userParameters.getGender());
@@ -73,7 +73,7 @@ public class SettingsFragment extends Fragment {
                             userOld.setLimit(userParameters.getLimit());
                         }
                         else{
-                            userOld.setLimit(Double.parseDouble(calorieLimitT.toString()));
+                            userOld.setLimit(Double.parseDouble(calorieLimitT.getText().toString()));
                         }
 
                         databaseInstance.setUserParameters(userOld.getWeight(),userOld.getHeight(),userOld.getLimit(),userOld.getGender());
