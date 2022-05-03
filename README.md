@@ -8,9 +8,10 @@
  - [x] As a user, I want to be able to login, such that I could register my unique parameters
  - [x] As a user, I want to be able to register my calorie intake, such that I can later compare the data
  - [x] As a user, I want to be able to view my daily calorie intake, such that I can track changes and optimize my diet
- - [ ] As a user, I want to be able to register my weight, such that I can later see gains or losses
+ - [x] As a user, I want to be able to register my weight, such that I can later see gains or losses
  - [ ] As a user, I want to be able to view my weight, such that I can compare the results of my diet
   #### High priority requirements: ####
+ - [ ] As a user, I want to see my BMI, such that I would know if I am of optimal size
  - [ ] As a user, I want the app to summarise the data for me in weekly reports
  - [ ] As a user, I want to see the log of foods i have eaten
  - [ ] As a user, I want to be able to set a biological gender
