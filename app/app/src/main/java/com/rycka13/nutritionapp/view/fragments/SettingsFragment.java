@@ -14,9 +14,12 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.rycka13.nutritionapp.R;
+import com.rycka13.nutritionapp.model.data.Weight;
 import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
 import com.rycka13.nutritionapp.model.data.User;
 import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+
+import java.time.LocalDate;
 
 public class SettingsFragment extends Fragment {
     public SettingsFragment(){
@@ -52,6 +55,7 @@ public class SettingsFragment extends Fragment {
                         }
                         else{
                             userOld.setWeight(Double.parseDouble(weightT.getText().toString()));
+                            databaseInstance.addUserWeight(new Weight(Double.parseDouble(weightT.getText().toString()), LocalDate.now().toString()));
                         }
                         if(heightT.getText().toString().isEmpty()){
                             userOld.setHeight(userParameters.getHeight());

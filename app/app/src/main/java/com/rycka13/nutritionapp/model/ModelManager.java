@@ -20,40 +20,51 @@ public class ModelManager implements Model{
     public double getTodaysCalories(ArrayList<Food> userFoods) {
         LocalDate todaysDate = LocalDate.now();
 
-        if(userFoods.size()==0){
-            return 0;
-        }
-
-        int index=userFoods.size()-1;
         double consumedCalories = 0;
 
-        while (userFoods.get(index).getDate().equals(todaysDate.toString())){
-            consumedCalories+= userFoods.get(index).getCaloriesPer100Grams()/100 * userFoods.get(index).getGramsConsumed();
-            index--;
+        for (int i = 0; i < userFoods.size(); i++) {
+            if(!userFoods.get(i).getDate().equals(todaysDate.toString())) {
+                break;
+            }
+            consumedCalories+= userFoods.get(i).getCaloriesPer100Grams()/100 * userFoods.get(i).getGramsConsumed();
         }
-        return consumedCalories;
+        return Math.floor(consumedCalories);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public double getWeeklyCalories(ArrayList<Food> userFoods) {
+    public Double getWeeklyCalories(ArrayList<Food> userFoods) {
         LocalDate lastDate = LocalDate.now();
         LocalDate firstDate = lastDate.minusDays(7);
 
-
-        int index=userFoods.size()-1;
         double consumedCalories = 0;
 
-        while (LocalDate.parse(userFoods.get(index).getDate()).isAfter(firstDate)){
-            consumedCalories+= userFoods.get(index).getCaloriesPer100Grams()/100 * userFoods.get(index).getGramsConsumed();
-            index--;
+        for (int i = 0; i < userFoods.size(); i++){
+            if(!LocalDate.parse(userFoods.get(i).getDate()).isAfter(firstDate)) {
+                break;
+            }
+            consumedCalories+= userFoods.get(i).getCaloriesPer100Grams()/100 * userFoods.get(i).getGramsConsumed();
         }
-        return consumedCalories;
+        return Math.floor(consumedCalories);
     }
 
     @Override
     public int getPercentage(double consumed, double total) {
-        int ret = (int) Math.round(consumed/total*100);
-        return ret;
+        return (int) Math.round(consumed/total*100);
+    }
+
+    @Override
+    public Double getBMI(double height, double weight) {
+        return Math.floor(weight/(height*height/10000));
+    }
+
+    @Override
+    public Double getWeightChange(double oldWeight, double newWeight) {
+        return Math.floor(newWeight - oldWeight);
+    }
+
+    @Override
+    public Double getFoodCalories(double caloriesPer100, double grams) {
+        return Math.floor(caloriesPer100/100*grams);
     }
 
 

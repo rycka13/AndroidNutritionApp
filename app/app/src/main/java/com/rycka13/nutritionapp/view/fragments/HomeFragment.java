@@ -56,12 +56,37 @@ public class HomeFragment extends Fragment{
 
             DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
             databaseInstance.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
+                if(userParameters.getHeight() == 0 || userParameters.getWeight() ==0){
+                    weight.setText("Not enough\n data");
+                }
+                else{
+                    weight.setText(model.getBMI(userParameters.getHeight(), userParameters.getWeight()).toString());
+                }
 
-                weight.setText(userParameters.getWeight().toString());
-                height.setText(userParameters.getHeight().toString());
                 databaseInstance.getFood().observe(getViewLifecycleOwner(),foods -> {
                     progressBar.setProgress(model.getPercentage(model.getTodaysCalories((ArrayList<Food>) foods),userParameters.getLimit()));
                     calories.setText(model.getTodaysCalories((ArrayList<Food>) foods) + "/\n" + userParameters.getLimit());
+                });
+
+                databaseInstance.getUserWeight().observe(getViewLifecycleOwner(),weights ->{
+                    if(weights.size() < 2){
+                        height.setText("Not enough\n data");
+                    }
+                    else{
+                        Double change = model.getWeightChange(weights.get(1).getWeight(),weights.get(0).getWeight());
+                        if(change>0){
+                            height.setText("+" +change.toString());
+                        }
+                        if(change<0){
+                            height.setText("-" + change.toString());
+                        }
+                        else {
+
+                            height.setText(change.toString());
+
+                        }
+                    }
+
                 });
 
             });

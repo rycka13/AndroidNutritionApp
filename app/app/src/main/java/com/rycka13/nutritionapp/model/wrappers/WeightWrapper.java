@@ -11,15 +11,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.rycka13.nutritionapp.model.data.Food;
+import com.rycka13.nutritionapp.model.data.Weight;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FoodWrapper extends LiveData<ArrayList<Food>> {
+public class WeightWrapper extends LiveData<ArrayList<Weight>> {
 
-    private ArrayList<Food> foodsList;
+    private ArrayList<Weight> weightList;
     private DocumentReference dbRef;
     private String userId;
 
@@ -30,16 +30,9 @@ public class FoodWrapper extends LiveData<ArrayList<Food>> {
             Map<String,Object> hashMap;
             hashMap = value.getData();
             HashMap<String,Object> tempMap = (HashMap<String, Object>) hashMap;
-            if(tempMap==null){
-                foodsList.add(new Food("Example food",200,200, LocalDate.now().toString()));
-            }
-            else{
-                ArrayList<HashMap> foods = (ArrayList<HashMap>) tempMap.get(userId);
-                setFoods(foods);
-            }
-
-
-            setValue(foodsList);
+            ArrayList<HashMap> weights = (ArrayList<HashMap>) tempMap.get(userId);
+            setFoods(weights);
+            setValue(weightList);
         }
 
     };
@@ -51,25 +44,26 @@ public class FoodWrapper extends LiveData<ArrayList<Food>> {
     }
 
 
-    public FoodWrapper(DocumentReference dbRef,String userId){
-        this.foodsList = new ArrayList<>();
+    public WeightWrapper(DocumentReference dbRef,String userId){
+        this.weightList = new ArrayList<>();
         this.dbRef = dbRef;
         this.userId = userId;
     }
 
-    public LiveData<ArrayList<Food>> getFoods() {
+    public LiveData<ArrayList<Weight>> getWeight() {
         return this;
     }
 
-    public ArrayList<Food> getFoodsList(){
-        return foodsList;
+    public ArrayList<Weight> getWeightList(){
+        return weightList;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setFoods(ArrayList<HashMap> foods) {
-        for (int i = 0; i<foods.size(); i++){
-            Food food = new Food((String) foods.get(i).get("foodName"),(Double) foods.get(i).get("caloriesPer100Grams"),(Double)foods.get(i).get("gramsConsumed"),(String) foods.get(i).get("date"));
-            this.foodsList.add(food);
+    public void setFoods(ArrayList<HashMap> weights) {
+        for (int i = 0; i<weights.size(); i++){
+            Weight weight = new Weight((Double)weights.get(i).get("weight"),(String) weights.get(i).get("dateString"));
+
+            this.weightList.add(weight);
         }
 
     }

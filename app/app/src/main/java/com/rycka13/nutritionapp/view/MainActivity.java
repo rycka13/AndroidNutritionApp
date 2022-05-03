@@ -117,5 +117,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public void signOut(View v) {
         viewModel.signOut();
+
+        startLoginActivity();
     }
 }

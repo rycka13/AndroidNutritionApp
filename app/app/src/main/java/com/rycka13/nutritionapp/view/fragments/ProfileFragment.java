@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -14,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rycka13.nutritionapp.R;
+import com.rycka13.nutritionapp.model.data.Food;
 import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
 import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 import com.rycka13.nutritionapp.model.data.Weight;
 import com.rycka13.nutritionapp.model.adapters.WeightListAdapter;
+import com.rycka13.nutritionapp.view.MainActivity;
 
 import java.util.ArrayList;
 
@@ -37,56 +40,50 @@ public class ProfileFragment extends Fragment {
 
         Application app = (Application) getActivity().getApplication();
         UserAuthInstance userRep = UserAuthInstance.getInstance(app);
-        DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
 
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
         Button button = view.findViewById(R.id.signOut);
-
-
+        TextView weight = view.findViewById(R.id.weight);
+        TextView height = view.findViewById(R.id.height);
+        TextView gender = view.findViewById(R.id.gender);
         weightList = view.findViewById(R.id.weightRecyclerView);
+
+
         weightList.hasFixedSize();
         weightList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ArrayList<Weight> weights = new ArrayList<>();
 
-        //TODO get the weights
-        weights.add(new Weight(80,"2022-04-29"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(50,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(20,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(80,"2022-04-28"));
-        weights.add(new Weight(10,"2022-04-27"));
 
-        weightListAdapter = new WeightListAdapter(weights);
 
-        weightList.setAdapter(weightListAdapter);
+
+        userRep.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
+
+            DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
+            databaseInstance.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
+
+                weight.setText(userParameters.getWeight().toString());
+                height.setText(userParameters.getHeight().toString());
+                gender.setText(userParameters.getGender());
+                databaseInstance.getUserWeight().observe(getViewLifecycleOwner(),weightsList -> {
+
+                    ArrayList<Weight> weights = new ArrayList<>(weightsList);
+
+                    weightListAdapter = new WeightListAdapter(weights);
+
+                    weightList.setAdapter(weightListAdapter);
+                });
+
+            });
+        });
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userRep.signOut();
+                MainActivity main = (MainActivity) getActivity();
+                main.signOut(view);
             }
 
         });

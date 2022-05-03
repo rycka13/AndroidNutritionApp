@@ -16,7 +16,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weightRecyclerView"
-        android:layout_width="391dp"
+        android:layout_width="match_parent"
         android:layout_height="237dp"
         android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@+id/signOut"

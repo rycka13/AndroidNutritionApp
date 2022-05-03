@@ -64,7 +64,7 @@
                 android:id="@+id/weight"
                 android:layout_width="95dp"
                 android:layout_height="41dp"
-                android:text="@string/weight"
+                android:text="@string/bmi"
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:textSize="15sp"
@@ -74,7 +74,7 @@
                 android:id="@+id/height"
                 android:layout_width="95dp"
                 android:layout_height="41dp"
-                android:text="@string/height"
+                android:text="@string/gain_loss"
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:textStyle="bold"/>
