@@ -11,6 +11,7 @@
  - [x] As a user, I want to be able to register my weight, such that I can later see gains or losses
  - [ ] As a user, I want to be able to view my weight, such that I can compare the results of my diet
   #### High priority requirements: ####
+ - [ ] As a user, I want to see my BMI, such that I would know if I am of optimal size
  - [ ] As a user, I want the app to summarise the data for me in weekly reports
  - [ ] As a user, I want to see the log of foods i have eaten
  - [ ] As a user, I want to be able to set a biological gender
