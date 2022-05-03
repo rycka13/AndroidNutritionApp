@@ -1,11 +1,11 @@
-package com.rycka13.nutritionapp.model;
+package com.rycka13.nutritionapp.model.wrappers;
 
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class UserLiveData extends LiveData<FirebaseUser> {
+public class UserAuthWrapper extends LiveData<FirebaseUser> {
     private final FirebaseAuth.AuthStateListener listener = firebaseAuth -> setValue(firebaseAuth.getCurrentUser());
 
     @Override

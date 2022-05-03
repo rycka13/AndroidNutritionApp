@@ -1,33 +1,21 @@
-package com.rycka13.nutritionapp.model;
+package com.rycka13.nutritionapp.model.instances;
 
 import android.os.Build;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.rycka13.nutritionapp.model.data.Food;
+import com.rycka13.nutritionapp.model.data.User;
+import com.rycka13.nutritionapp.model.wrappers.FoodWrapper;
+import com.rycka13.nutritionapp.model.wrappers.UserWrapper;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DatabaseInstance{
@@ -42,7 +30,6 @@ public class DatabaseInstance{
         this.userId = userId;
         db = FirebaseFirestore.getInstance();
     }
-//reset on sign out!!!!!!!!!!!!
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static DatabaseInstance getInstance(String userId) {

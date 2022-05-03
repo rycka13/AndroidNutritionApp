@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp;
+package com.rycka13.nutritionapp.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import com.rycka13.nutritionapp.R;
 
 public class ListFragment extends Fragment {
     public ListFragment(){

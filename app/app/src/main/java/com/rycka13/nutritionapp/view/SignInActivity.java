@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp;
+package com.rycka13.nutritionapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.firebase.ui.auth.AuthUI;
+import com.rycka13.nutritionapp.R;
+import com.rycka13.nutritionapp.viewModel.SignInViewModel;
 
 import java.util.Arrays;
 import java.util.List;

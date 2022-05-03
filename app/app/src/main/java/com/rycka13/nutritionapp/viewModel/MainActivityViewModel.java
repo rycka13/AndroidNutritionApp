@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp;
+package com.rycka13.nutritionapp.viewModel;
 
 import android.app.Application;
 
@@ -6,15 +6,15 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.rycka13.nutritionapp.model.UserRepository;
+import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 
 
 public class MainActivityViewModel extends AndroidViewModel {
-    private final UserRepository userRepository;
+    private final UserAuthInstance userAuthInstance;
 
     public MainActivityViewModel(Application app){
         super(app);
-        userRepository = UserRepository.getInstance(app);
+        userAuthInstance = UserAuthInstance.getInstance(app);
 
     }
 
@@ -23,10 +23,10 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){
-        return userRepository.getCurrentUser();
+        return userAuthInstance.getCurrentUser();
     }
 
     public void signOut() {
-        userRepository.signOut();
+        userAuthInstance.signOut();
     }
 }

@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp.model;
+package com.rycka13.nutritionapp.model.data;
 
 import android.os.Build;
 

@@ -4,8 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.rycka13.nutritionapp.model.data.Food;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

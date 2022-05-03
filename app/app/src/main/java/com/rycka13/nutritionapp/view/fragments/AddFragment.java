@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp;
+package com.rycka13.nutritionapp.view.fragments;
 
 import android.app.Application;
 import android.os.Build;
@@ -13,9 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.rycka13.nutritionapp.model.DatabaseInstance;
-import com.rycka13.nutritionapp.model.Food;
-import com.rycka13.nutritionapp.model.UserRepository;
+import com.rycka13.nutritionapp.R;
+import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
+import com.rycka13.nutritionapp.model.data.Food;
+import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 
 import java.time.LocalDate;
 
@@ -28,7 +29,7 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Application app = (Application) getActivity().getApplication();
-        UserRepository userRep = UserRepository.getInstance(app);
+        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
         DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
 
         View view = inflater.inflate(R.layout.add_fragment, container, false);

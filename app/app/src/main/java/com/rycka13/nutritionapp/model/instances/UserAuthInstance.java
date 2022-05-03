@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp.model;
+package com.rycka13.nutritionapp.model.instances;
 
 import android.app.Application;
 
@@ -7,21 +7,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.firebase.ui.auth.AuthUI;
 
 
-import com.google.firebase.auth.FirebaseUser;
+import com.rycka13.nutritionapp.model.wrappers.UserAuthWrapper;
 
-public class UserRepository {
-    private final UserLiveData currentUser;
+public class UserAuthInstance {
+    private final UserAuthWrapper currentUser;
     private final Application app;
-    private static UserRepository instance;
+    private static UserAuthInstance instance;
 
-    private UserRepository(Application app) {
+    private UserAuthInstance(Application app) {
         this.app = app;
-        currentUser = new UserLiveData();
+        currentUser = new UserAuthWrapper();
     }
 
-    public static synchronized UserRepository getInstance(Application app) {
+    public static synchronized UserAuthInstance getInstance(Application app) {
         if(instance == null)
-            instance = new UserRepository(app);
+            instance = new UserAuthInstance(app);
         return instance;
     }
 

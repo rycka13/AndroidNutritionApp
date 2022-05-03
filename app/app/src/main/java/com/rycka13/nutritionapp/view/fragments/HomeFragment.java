@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp;
+package com.rycka13.nutritionapp.view.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -12,15 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.rycka13.nutritionapp.model.DatabaseInstance;
-import com.rycka13.nutritionapp.model.Food;
+import com.rycka13.nutritionapp.R;
+import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
+import com.rycka13.nutritionapp.model.data.Food;
 import com.rycka13.nutritionapp.model.Model;
 import com.rycka13.nutritionapp.model.ModelManager;
-import com.rycka13.nutritionapp.model.User;
-import com.rycka13.nutritionapp.model.UserRepository;
+import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 
 import java.util.ArrayList;
 
@@ -29,13 +27,15 @@ public class HomeFragment extends Fragment{
         // require a empty public constructor
     }
 
+    //TODO change weight to BMI and height to weight loss/gain scale
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Application app = (Application) getActivity().getApplication();
-        UserRepository userRep = UserRepository.getInstance(app);
+        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
         Model model = new ModelManager();
 
         View view = inflater.inflate(R.layout.home_fragment, container, false);

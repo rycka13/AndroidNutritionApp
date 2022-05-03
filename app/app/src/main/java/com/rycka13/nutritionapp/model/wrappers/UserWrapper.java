@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp.model;
+package com.rycka13.nutritionapp.model.wrappers;
 
 import android.os.Build;
 
@@ -10,8 +10,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.rycka13.nutritionapp.model.data.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

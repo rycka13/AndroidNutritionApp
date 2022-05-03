@@ -1,5 +1,7 @@
 package com.rycka13.nutritionapp.model;
 
+import com.rycka13.nutritionapp.model.data.Food;
+
 import java.util.ArrayList;
 
 public interface Model {
