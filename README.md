@@ -6,6 +6,7 @@
  
  #### Critical requirements: ####
  - [x] As a user, I want to be able to login, such that I could register my unique parameters
+ - [x] As a user, I want to be able to log out, such that I could login with different account
  - [x] As a user, I want to be able to register my foods that I have eaten, such that I can later compare the data
  - [x] As a user, I want to be able to view my daily calorie intake, such that I can track changes and optimize my diet
  - [x] As a user, I want to be able to register my weight, such that I can later see gains or losses
