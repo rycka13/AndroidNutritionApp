@@ -27,11 +27,7 @@ import com.rycka13.nutritionapp.model.Model;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener{
 
     BottomNavigationView bottomNavigationView;
-    private FirebaseAuth mAuth;
-    private Model model;
     private MainActivityViewModel viewModel;
-    private View view;
-    private DatabaseInstance dbInstance;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -42,11 +38,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         viewModel.init();
         checkIfSignedIn();
         setContentView(R.layout.activity_main);
-
-
-
-        mAuth = FirebaseAuth.getInstance();
-
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -93,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
-                dbInstance = DatabaseInstance.getInstance(user.getUid());
+                viewModel.initializeDatabaseInstance(user.getUid()); //WHY NO WORK
                 //dbInstance.setInstance(user.getUid());
 
 //                model = ModelManager.getInstance(user);
@@ -118,6 +109,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void signOut(View v) {
         viewModel.signOut();
 
+        startLoginActivity();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         startLoginActivity();
     }
 }

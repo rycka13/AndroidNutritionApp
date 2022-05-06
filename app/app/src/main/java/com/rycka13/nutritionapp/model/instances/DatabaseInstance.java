@@ -43,11 +43,6 @@ public class DatabaseInstance{
         return instance;
     }
 
-    public static DatabaseInstance getInstance() {
-
-        return instance;
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setInstance(String userId){

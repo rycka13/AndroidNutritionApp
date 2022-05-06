@@ -12,12 +12,14 @@ import android.widget.EditText;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.rycka13.nutritionapp.R;
 import com.rycka13.nutritionapp.model.data.Weight;
 import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
 import com.rycka13.nutritionapp.model.data.User;
 import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.viewModel.SettingsViewModel;
 
 import java.time.LocalDate;
 
@@ -29,8 +31,11 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Application app = (Application) getActivity().getApplication();
-        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
-        DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
+//        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
+//        DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
+        SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+
+
 
         View view = inflater.inflate(R.layout.settings_fragment, container, false);
 
@@ -45,9 +50,9 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                userRep.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
-                    DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
-                    databaseInstance.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
+                settingsViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
+                    //DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
+                    settingsViewModel.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
 
                         User userOld = new User();
                         if(weightT.getText().toString().isEmpty()){
@@ -55,7 +60,7 @@ public class SettingsFragment extends Fragment {
                         }
                         else{
                             userOld.setWeight(Double.parseDouble(weightT.getText().toString()));
-                            databaseInstance.addUserWeight(new Weight(Double.parseDouble(weightT.getText().toString()), LocalDate.now().toString()));
+                            settingsViewModel.addUserWeight(new Weight(Double.parseDouble(weightT.getText().toString()), LocalDate.now().toString()));
                         }
                         if(heightT.getText().toString().isEmpty()){
                             userOld.setHeight(userParameters.getHeight());
@@ -76,7 +81,7 @@ public class SettingsFragment extends Fragment {
                             userOld.setLimit(Double.parseDouble(calorieLimitT.getText().toString()));
                         }
 
-                        databaseInstance.setUserParameters(userOld.getWeight(),userOld.getHeight(),userOld.getLimit(),userOld.getGender());
+                        settingsViewModel.setUserParameters(userOld.getWeight(),userOld.getHeight(),userOld.getLimit(),userOld.getGender());
 
                         weightT.setText("");
                         heightT.setText("");

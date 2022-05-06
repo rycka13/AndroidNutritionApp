@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,7 @@ import com.rycka13.nutritionapp.model.data.Weight;
 import com.rycka13.nutritionapp.model.adapters.WeightListAdapter;
 import com.rycka13.nutritionapp.view.MainActivity;
 import com.rycka13.nutritionapp.view.SignInActivity;
+import com.rycka13.nutritionapp.viewModel.ProfileViewModel;
 
 import java.util.ArrayList;
 
@@ -42,7 +44,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
 
         Application app = (Application) getActivity().getApplication();
-        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
+        ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        //UserAuthInstance userRep = UserAuthInstance.getInstance(app);
 
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
@@ -60,17 +63,17 @@ public class ProfileFragment extends Fragment {
 
 
 
-        userRep.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
+        profileViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
 
-            DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
-            databaseInstance.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
+            //DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
+            profileViewModel.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         FirebaseAuth.getInstance().signOut();
-                        databaseInstance.setInstance(null);
+                        //databaseInstance.setInstance(null);
                         startActivity(new Intent(app, SignInActivity.class));
 //                MainActivity main = (MainActivity) getActivity();
 //                main.signOut(view);
@@ -82,7 +85,7 @@ public class ProfileFragment extends Fragment {
                 weight.setText(userParameters.getWeight().toString());
                 height.setText(userParameters.getHeight().toString());
                 gender.setText(userParameters.getGender());
-                databaseInstance.getUserWeight().observe(getViewLifecycleOwner(),weightsList -> {
+                profileViewModel.getUserWeight().observe(getViewLifecycleOwner(),weightsList -> {
 
                     ArrayList<Weight> weights = new ArrayList<>(weightsList);
 

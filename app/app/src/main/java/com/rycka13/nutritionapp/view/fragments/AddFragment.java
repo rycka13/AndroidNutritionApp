@@ -12,11 +12,13 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.rycka13.nutritionapp.R;
 import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
 import com.rycka13.nutritionapp.model.data.Food;
 import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.viewModel.AddViewModel;
 
 import java.time.LocalDate;
 
@@ -29,8 +31,8 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Application app = (Application) getActivity().getApplication();
-        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
-        DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
+//        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
+//        DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
 
         View view = inflater.inflate(R.layout.add_fragment, container, false);
 
@@ -38,6 +40,7 @@ public class AddFragment extends Fragment {
         EditText foodName = view.findViewById(R.id.foodName);
         EditText caloriesPer = view.findViewById(R.id.caloriesPer);
         EditText grams = view.findViewById(R.id.grams);
+        AddViewModel addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -51,7 +54,7 @@ public class AddFragment extends Fragment {
                 }
                 else {
                     Food foodToSave = new Food(foodName.getText().toString(), Double.parseDouble(caloriesPer.getText().toString()), Double.parseDouble(grams.getText().toString()), LocalDate.now().toString());
-                    databaseInstance.addFood(foodToSave);
+                    addViewModel.addFood(foodToSave);
                     Toast.makeText(app.getApplicationContext(), "Food added", Toast.LENGTH_SHORT).show();
                     foodName.setText("");
                     caloriesPer.setText("");

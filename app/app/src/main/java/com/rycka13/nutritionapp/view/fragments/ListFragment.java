@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import com.rycka13.nutritionapp.model.data.Food;
 import com.rycka13.nutritionapp.model.data.Weight;
 import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
 import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.viewModel.ListViewModel;
 
 import java.util.ArrayList;
 
@@ -42,7 +44,8 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         model = new ModelManager();
         Application app = (Application) getActivity().getApplication();
-        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
+        //UserAuthInstance userRep = UserAuthInstance.getInstance(app);
+        ListViewModel listViewModel = new ViewModelProvider(this).get(ListViewModel.class);
 
         View view = inflater.inflate(R.layout.list_fragment, container, false);
 
@@ -61,13 +64,13 @@ public class ListFragment extends Fragment {
 
 
 
-        userRep.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
+        listViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
 
-            DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
-            databaseInstance.getFood().observe(getViewLifecycleOwner(),foodsReceived ->{
+//            DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
+            listViewModel.getFood().observe(getViewLifecycleOwner(),foodsReceived ->{
                 ArrayList<Food> foods = new ArrayList<>(foodsReceived);
 
-                weeklyCalories.setText(model.getWeeklyCalories(foods).toString());
+                weeklyCalories.setText(listViewModel.getWeeklyCalories(foods));
 
                 foodListAdapter = new FoodListAdapter(foods);
 
