@@ -25,7 +25,6 @@ public class MainActivityViewModel extends AndroidViewModel {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void init() {
         String userId = userAuthInstance.getCurrentUser().getValue().getUid();
-        //databaseInstance = DatabaseInstance.getInstance(userId);
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){

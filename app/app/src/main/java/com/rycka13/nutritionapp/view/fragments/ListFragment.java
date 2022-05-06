@@ -44,7 +44,6 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         model = new ModelManager();
         Application app = (Application) getActivity().getApplication();
-        //UserAuthInstance userRep = UserAuthInstance.getInstance(app);
         ListViewModel listViewModel = new ViewModelProvider(this).get(ListViewModel.class);
 
         View view = inflater.inflate(R.layout.list_fragment, container, false);
@@ -66,7 +65,6 @@ public class ListFragment extends Fragment {
 
         listViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
 
-//            DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
             listViewModel.getFood().observe(getViewLifecycleOwner(),foodsReceived ->{
                 ArrayList<Food> foods = new ArrayList<>(foodsReceived);
 

@@ -31,8 +31,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Application app = (Application) getActivity().getApplication();
-//        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
-//        DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
+
         SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
 
@@ -51,7 +50,7 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
 
                 settingsViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
-                    //DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
+
                     settingsViewModel.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
 
                         User userOld = new User();

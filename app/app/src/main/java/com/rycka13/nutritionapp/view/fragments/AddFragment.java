@@ -31,8 +31,6 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Application app = (Application) getActivity().getApplication();
-//        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
-//        DatabaseInstance databaseInstance = DatabaseInstance.getInstance();
 
         View view = inflater.inflate(R.layout.add_fragment, container, false);
 

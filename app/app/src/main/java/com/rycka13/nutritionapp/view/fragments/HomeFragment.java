@@ -37,8 +37,6 @@ public class HomeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Application app = (Application) getActivity().getApplication();
-//        UserAuthInstance userRep = UserAuthInstance.getInstance(app);
-//        Model model = new ModelManager();
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ProgressBar progressBar;

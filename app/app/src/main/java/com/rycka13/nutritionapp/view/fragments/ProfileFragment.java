@@ -41,11 +41,8 @@ public class ProfileFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         Application app = (Application) getActivity().getApplication();
         ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        //UserAuthInstance userRep = UserAuthInstance.getInstance(app);
 
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
 
@@ -65,7 +62,6 @@ public class ProfileFragment extends Fragment {
 
         profileViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user ->{
 
-            //DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
             profileViewModel.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
 
                 button.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +69,8 @@ public class ProfileFragment extends Fragment {
                     public void onClick(View view) {
 
                         FirebaseAuth.getInstance().signOut();
-                        //databaseInstance.setInstance(null);
                         startActivity(new Intent(app, SignInActivity.class));
-//                MainActivity main = (MainActivity) getActivity();
-//                main.signOut(view);
-//                startActivity(new Intent(app, SignInActivity.class));
+
                     }
 
                 });
