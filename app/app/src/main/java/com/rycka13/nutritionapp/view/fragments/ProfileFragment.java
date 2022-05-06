@@ -1,6 +1,7 @@
 package com.rycka13.nutritionapp.view.fragments;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.rycka13.nutritionapp.R;
 import com.rycka13.nutritionapp.model.data.Food;
 import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
@@ -21,6 +23,7 @@ import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 import com.rycka13.nutritionapp.model.data.Weight;
 import com.rycka13.nutritionapp.model.adapters.WeightListAdapter;
 import com.rycka13.nutritionapp.view.MainActivity;
+import com.rycka13.nutritionapp.view.SignInActivity;
 
 import java.util.ArrayList;
 
@@ -62,6 +65,20 @@ public class ProfileFragment extends Fragment {
             DatabaseInstance databaseInstance = DatabaseInstance.getInstance(user.getUid());
             databaseInstance.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
 
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        FirebaseAuth.getInstance().signOut();
+                        databaseInstance.setInstance(null);
+                        startActivity(new Intent(app, SignInActivity.class));
+//                MainActivity main = (MainActivity) getActivity();
+//                main.signOut(view);
+//                startActivity(new Intent(app, SignInActivity.class));
+                    }
+
+                });
+
                 weight.setText(userParameters.getWeight().toString());
                 height.setText(userParameters.getHeight().toString());
                 gender.setText(userParameters.getGender());
@@ -79,14 +96,7 @@ public class ProfileFragment extends Fragment {
 
 
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity main = (MainActivity) getActivity();
-                main.signOut(view);
-            }
 
-        });
 
 
         return view;

@@ -77,9 +77,6 @@ public class HomeFragment extends Fragment{
                         if(change>0){
                             height.setText("+" +change.toString());
                         }
-                        if(change<0){
-                            height.setText("-" + change.toString());
-                        }
                         else {
 
                             height.setText(change.toString());

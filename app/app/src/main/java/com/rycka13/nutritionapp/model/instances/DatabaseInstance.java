@@ -114,16 +114,18 @@ public class DatabaseInstance{
                     hashMap = dc.getDocument().getData();
                     HashMap<String,Object> tempMap = (HashMap<String, Object>) hashMap;
                     ArrayList<HashMap> foods = (ArrayList<HashMap>) tempMap.get(userId);
-                    ArrayList<Food> foodsList = new ArrayList<>();
-                    for (int i = 0; i<foods.size(); i++){
-                        Food foodExtract = new Food((String) foods.get(i).get("foodName"),(Double) foods.get(i).get("caloriesPer100Grams"),(Double)foods.get(i).get("gramsConsumed"),(String) foods.get(i).get("date"));
-                        foodsList.add(foodExtract);
-                    }
-                    foodsList.add(0,food);
-                    HashMap<String,ArrayList<Food>> map = new HashMap<>();
-                    map.put(userId,foodsList);
+                    if(foods!=null) {
+                        ArrayList<Food> foodsList = new ArrayList<>();
+                        for (int i = 0; i < foods.size(); i++) {
+                            Food foodExtract = new Food((String) foods.get(i).get("foodName"), (Double) foods.get(i).get("caloriesPer100Grams"), (Double) foods.get(i).get("gramsConsumed"), (String) foods.get(i).get("date"));
+                            foodsList.add(foodExtract);
+                        }
+                        foodsList.add(0, food);
+                        HashMap<String, ArrayList<Food>> map = new HashMap<>();
+                        map.put(userId, foodsList);
 
-                    db.collection("usersFoods").document(userId).set(map);
+                        db.collection("usersFoods").document(userId).set(map);
+                    }
                 }
             }
         });
@@ -186,17 +188,19 @@ public class DatabaseInstance{
                     Map<String,Object> hashMap;
                     hashMap = dc.getDocument().getData();
                     HashMap<String,Object> tempMap = (HashMap<String, Object>) hashMap;
-                    ArrayList<HashMap> weightsReceived = (ArrayList<HashMap>) tempMap.get(userId); //foods
-                    ArrayList<Weight> weightsList = new ArrayList<>();
-                    for (int i = 0; i<weightsReceived.size(); i++){
-                        Weight weightExtract = new Weight((Double) weightsReceived.get(i).get("weight"),(String) weightsReceived.get(i).get("dateString"));
-                        weightsList.add(weightExtract);
-                    }
-                    weightsList.add(0,weight);
-                    HashMap<String,ArrayList<Weight>> map = new HashMap<>();
-                    map.put(userId,weightsList);
+                    ArrayList<HashMap> weightsReceived = (ArrayList<HashMap>) tempMap.get(userId);
+                    if(weightsReceived != null) {
+                        ArrayList<Weight> weightsList = new ArrayList<>();
+                        for (int i = 0; i < weightsReceived.size(); i++) {
+                            Weight weightExtract = new Weight((Double) weightsReceived.get(i).get("weight"), (String) weightsReceived.get(i).get("dateString"));
+                            weightsList.add(weightExtract);
+                        }
+                        weightsList.add(0, weight);
+                        HashMap<String, ArrayList<Weight>> map = new HashMap<>();
+                        map.put(userId, weightsList);
 
-                    db.collection("usersWeight").document(userId).set(map);
+                        db.collection("usersWeight").document(userId).set(map);
+                    }
                 }
             }
         });
