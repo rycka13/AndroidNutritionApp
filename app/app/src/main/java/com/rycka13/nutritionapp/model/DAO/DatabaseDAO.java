@@ -1,4 +1,4 @@
-package com.rycka13.nutritionapp.model.instances;
+package com.rycka13.nutritionapp.model.DAO;
 
 import android.os.Build;
 
@@ -20,34 +20,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DatabaseInstance{
+public class DatabaseDAO {
+
+    private final String foodsReference = "usersFoods";
+    private final String parametersReference = "usersParameters";
+    private final String weightsReference = "usersWeight";
 
     private String userId;
     private FirebaseFirestore db;
-    private static DatabaseInstance instance;
+    private static DatabaseDAO instance;
     private FoodWrapper fr;
     private UserWrapper uw;
     private WeightWrapper ww;
 
-    private DatabaseInstance(String userId){
+    private DatabaseDAO(String userId){
         this.userId = userId;
         db = FirebaseFirestore.getInstance();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static DatabaseInstance getInstance(String userId) {
+    public static DatabaseDAO getInstance(String userId) {
         if(instance == null){
-            instance = new DatabaseInstance(userId);
+            instance = new DatabaseDAO(userId);
             instance.findUser();
         }
         return instance;
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setInstance(String userId){
-        this.userId =userId;
-        findUser();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -67,9 +64,9 @@ public class DatabaseInstance{
         mapParameters.put("limit",2000.0);
         mapParameters.put("gender","Unknown");
 
-        db.collection("usersFoods").document(userId).set(map);
-        db.collection("usersParameters").document(userId).set(mapParameters);
-        db.collection("usersWeight").document(userId).set(mapWeight);
+        db.collection(foodsReference).document(userId).set(map);
+        db.collection(parametersReference).document(userId).set(mapParameters);
+        db.collection(weightsReference).document(userId).set(mapWeight);
 
         return true;
     }
@@ -78,7 +75,7 @@ public class DatabaseInstance{
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean findUser() {
 
-        DocumentReference docIdRef = db.collection("usersFoods").document(userId); //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection
+        DocumentReference docIdRef = db.collection(foodsReference).document(userId); //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection
         docIdRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -101,7 +98,7 @@ public class DatabaseInstance{
     public boolean addFood(Food food) {
 
 
-        db.collection("usersFoods").addSnapshotListener((value, error) -> {
+        db.collection(foodsReference).addSnapshotListener((value, error) -> {
             for(DocumentChange dc : value.getDocumentChanges()){
                 if(dc.getType() == DocumentChange.Type.ADDED){
 
@@ -119,7 +116,7 @@ public class DatabaseInstance{
                         HashMap<String, ArrayList<Food>> map = new HashMap<>();
                         map.put(userId, foodsList);
 
-                        db.collection("usersFoods").document(userId).set(map);
+                        db.collection(foodsReference).document(userId).set(map);
                     }
                 }
             }
@@ -129,7 +126,7 @@ public class DatabaseInstance{
     }
 
     public boolean removeFood(Food food) {
-        db.collection("usersFoods").addSnapshotListener((value, error) -> {
+        db.collection(foodsReference).addSnapshotListener((value, error) -> {
             for(DocumentChange dc : value.getDocumentChanges()){
                 if(dc.getType() == DocumentChange.Type.ADDED){
                     Map<String,Object> hashMap;
@@ -139,7 +136,7 @@ public class DatabaseInstance{
                     HashMap<String,ArrayList<Food>> map = new HashMap<>();
                     map.put(userId,foods);
 
-                    db.collection("usersFoods").document(userId).set(map);
+                    db.collection(foodsReference).document(userId).set(map);
                 }
             }
         });
@@ -148,7 +145,7 @@ public class DatabaseInstance{
 
     public LiveData<ArrayList<Food>> getFood() {
 
-        DocumentReference docRef = db.collection("usersFoods").document(userId);
+        DocumentReference docRef = db.collection(foodsReference).document(userId);
         fr = new FoodWrapper(docRef,userId);
 
         return fr.getFoods();
@@ -161,14 +158,14 @@ public class DatabaseInstance{
         map.put("height",height);
         map.put("limit",limit);
         map.put("gender",gender);
-        db.collection("usersParameters").document(userId).set(map);
+        db.collection(parametersReference).document(userId).set(map);
 
         return true;
     }
 
     public LiveData<User> getUserData(){
 
-        DocumentReference docRef = db.collection("usersParameters").document(userId);
+        DocumentReference docRef = db.collection(parametersReference).document(userId);
 
         uw = new UserWrapper(docRef,userId);
 
@@ -176,7 +173,7 @@ public class DatabaseInstance{
     }
 
     public boolean addUserWeight(Weight weight){
-        db.collection("usersWeight").addSnapshotListener((value, error) -> {
+        db.collection(weightsReference).addSnapshotListener((value, error) -> {
             for(DocumentChange dc : value.getDocumentChanges()){
                 if(dc.getType() == DocumentChange.Type.ADDED){
 
@@ -194,7 +191,7 @@ public class DatabaseInstance{
                         HashMap<String, ArrayList<Weight>> map = new HashMap<>();
                         map.put(userId, weightsList);
 
-                        db.collection("usersWeight").document(userId).set(map);
+                        db.collection(weightsReference).document(userId).set(map);
                     }
                 }
             }
@@ -204,7 +201,7 @@ public class DatabaseInstance{
     }
 
     public LiveData<ArrayList<Weight>> getUserWeight(){
-        DocumentReference docRef = db.collection("usersWeight").document(userId);
+        DocumentReference docRef = db.collection(weightsReference).document(userId);
 
         ww = new WeightWrapper(docRef,userId);
 

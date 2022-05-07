@@ -6,18 +6,18 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.model.instances.UserRepository;
 
 
 public class SignInViewModel extends AndroidViewModel {
-    private final UserAuthInstance userAuthInstance;
+    private final UserRepository userRepository;
 
     public SignInViewModel(Application app){
         super(app);
-        userAuthInstance = UserAuthInstance.getInstance(app);
+        userRepository = UserRepository.getInstance(app);
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){
-        return userAuthInstance.getCurrentUser();
+        return userRepository.getCurrentUser();
     }
 }

@@ -14,22 +14,22 @@ import com.rycka13.nutritionapp.model.ModelManager;
 import com.rycka13.nutritionapp.model.data.Food;
 import com.rycka13.nutritionapp.model.data.User;
 import com.rycka13.nutritionapp.model.data.Weight;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.model.instances.DataRepository;
+import com.rycka13.nutritionapp.model.instances.UserRepository;
 
 import java.util.ArrayList;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private UserAuthInstance userRep;
-    private DatabaseInstance databaseInstance;
+    private UserRepository userRep;
+    private DataRepository dataRepositoryInterface;
     private Model model;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
 
-        userRep = UserAuthInstance.getInstance(application);
-        databaseInstance = DatabaseInstance.getInstance(userRep.getCurrentUser().getValue().getUid());
+        userRep = UserRepository.getInstance(application);
+        dataRepositoryInterface = DataRepository.getInstance(userRep.getCurrentUser().getValue().getUid());
         model = new ModelManager();
     }
 
@@ -38,11 +38,11 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<Food>> getFood(){
-        return databaseInstance.getFood();
+        return dataRepositoryInterface.getFood();
     }
 
     public LiveData<ArrayList<Weight>> getUserWeight(){
-        return databaseInstance.getUserWeight();
+        return dataRepositoryInterface.getUserWeight();
     }
 
     public String getBMI(double height, double weight){
@@ -54,7 +54,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getUserData() {
-        return databaseInstance.getUserData();
+        return dataRepositoryInterface.getUserData();
     }
 
     public String getTodaysCalories(ArrayList<Food> foods, Double limit){
@@ -67,6 +67,6 @@ public class HomeViewModel extends AndroidViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setDatabaseInstance(String userId){
-        databaseInstance.getInstance(userId);
+        dataRepositoryInterface.getInstance(userId);
     }
 }

@@ -7,24 +7,22 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.rycka13.nutritionapp.model.Model;
-import com.rycka13.nutritionapp.model.ModelManager;
 import com.rycka13.nutritionapp.model.data.User;
 import com.rycka13.nutritionapp.model.data.Weight;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.model.instances.DataRepository;
+import com.rycka13.nutritionapp.model.instances.UserRepository;
 
 import java.util.ArrayList;
 
 public class ProfileViewModel extends AndroidViewModel {
 
-    private UserAuthInstance userRep;
-    private DatabaseInstance databaseInstance;
+    private UserRepository userRep;
+    private DataRepository dataRepositoryInterface;
 
     public ProfileViewModel(@NonNull Application application) {
         super(application);
-        userRep = UserAuthInstance.getInstance(application);
-        databaseInstance = DatabaseInstance.getInstance(userRep.getCurrentUser().getValue().getUid());
+        userRep = UserRepository.getInstance(application);
+        dataRepositoryInterface = DataRepository.getInstance(userRep.getCurrentUser().getValue().getUid());
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){
@@ -32,11 +30,11 @@ public class ProfileViewModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<Weight>> getUserWeight(){
-        return databaseInstance.getUserWeight();
+        return dataRepositoryInterface.getUserWeight();
     }
 
     public LiveData<User> getUserData() {
-        return databaseInstance.getUserData();
+        return dataRepositoryInterface.getUserData();
     }
 
 }

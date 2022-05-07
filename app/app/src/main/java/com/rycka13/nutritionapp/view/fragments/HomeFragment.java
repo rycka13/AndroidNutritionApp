@@ -15,14 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.rycka13.nutritionapp.R;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.data.Food;
-import com.rycka13.nutritionapp.model.Model;
-import com.rycka13.nutritionapp.model.ModelManager;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 import com.rycka13.nutritionapp.viewModel.HomeViewModel;
-
-import java.util.ArrayList;
 
 public class HomeFragment extends Fragment{
     public HomeFragment(){

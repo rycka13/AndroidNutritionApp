@@ -10,22 +10,22 @@ import com.google.firebase.auth.FirebaseUser;
 import com.rycka13.nutritionapp.model.Model;
 import com.rycka13.nutritionapp.model.ModelManager;
 import com.rycka13.nutritionapp.model.data.Food;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.model.instances.DataRepository;
+import com.rycka13.nutritionapp.model.instances.UserRepository;
 
 import java.util.ArrayList;
 
 public class ListViewModel extends AndroidViewModel {
 
 
-    private UserAuthInstance userRep;
-    private DatabaseInstance databaseInstance;
+    private UserRepository userRep;
+    private DataRepository dataRepositoryInterface;
     private Model model;
 
     public ListViewModel(@NonNull Application application) {
         super(application);
-        userRep = UserAuthInstance.getInstance(application);
-        databaseInstance = DatabaseInstance.getInstance(userRep.getCurrentUser().getValue().getUid());
+        userRep = UserRepository.getInstance(application);
+        dataRepositoryInterface = DataRepository.getInstance(userRep.getCurrentUser().getValue().getUid());
         model = new ModelManager();
     }
 
@@ -34,7 +34,7 @@ public class ListViewModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<Food>> getFood(){
-        return databaseInstance.getFood();
+        return dataRepositoryInterface.getFood();
     }
 
     public String getWeeklyCalories(ArrayList<Food> foods){

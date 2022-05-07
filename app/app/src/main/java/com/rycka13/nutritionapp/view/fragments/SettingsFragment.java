@@ -16,9 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.rycka13.nutritionapp.R;
 import com.rycka13.nutritionapp.model.data.Weight;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
 import com.rycka13.nutritionapp.model.data.User;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 import com.rycka13.nutritionapp.viewModel.SettingsViewModel;
 
 import java.time.LocalDate;

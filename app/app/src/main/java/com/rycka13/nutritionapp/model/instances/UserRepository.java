@@ -9,19 +9,19 @@ import com.firebase.ui.auth.AuthUI;
 
 import com.rycka13.nutritionapp.model.wrappers.UserAuthWrapper;
 
-public class UserAuthInstance {
+public class UserRepository {
     private final UserAuthWrapper currentUser;
     private final Application app;
-    private static UserAuthInstance instance;
+    private static UserRepository instance;
 
-    private UserAuthInstance(Application app) {
+    private UserRepository(Application app) {
         this.app = app;
         currentUser = new UserAuthWrapper();
     }
 
-    public static synchronized UserAuthInstance getInstance(Application app) {
+    public static synchronized UserRepository getInstance(Application app) {
         if(instance == null)
-            instance = new UserAuthInstance(app);
+            instance = new UserRepository(app);
         return instance;
     }
 

@@ -11,19 +11,19 @@ import com.rycka13.nutritionapp.model.Model;
 import com.rycka13.nutritionapp.model.ModelManager;
 import com.rycka13.nutritionapp.model.data.User;
 import com.rycka13.nutritionapp.model.data.Weight;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.model.instances.DataRepository;
+import com.rycka13.nutritionapp.model.instances.UserRepository;
 
 public class SettingsViewModel extends AndroidViewModel {
 
-    private UserAuthInstance userRep;
-    private DatabaseInstance databaseInstance;
+    private UserRepository userRep;
+    private DataRepository dataRepositoryInterface;
     private Model model;
 
     public SettingsViewModel(@NonNull Application application) {
         super(application);
-        userRep = UserAuthInstance.getInstance(application);
-        databaseInstance = DatabaseInstance.getInstance(userRep.getCurrentUser().getValue().getUid());
+        userRep = UserRepository.getInstance(application);
+        dataRepositoryInterface = DataRepository.getInstance(userRep.getCurrentUser().getValue().getUid());
         model = new ModelManager();
     }
 
@@ -32,14 +32,14 @@ public class SettingsViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getUserData() {
-        return databaseInstance.getUserData();
+        return dataRepositoryInterface.getUserData();
     }
 
     public void addUserWeight(Weight weight){
-        databaseInstance.addUserWeight(weight);
+        dataRepositoryInterface.addUserWeight(weight);
     }
 
     public void setUserParameters(double weight, double height, double limit, String gender){
-        databaseInstance.setUserParameters(weight,height,limit,gender);
+        dataRepositoryInterface.setUserParameters(weight,height,limit,gender);
     }
 }

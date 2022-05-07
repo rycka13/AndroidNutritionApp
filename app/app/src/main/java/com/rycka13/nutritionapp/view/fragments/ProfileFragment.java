@@ -18,12 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.rycka13.nutritionapp.R;
-import com.rycka13.nutritionapp.model.data.Food;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
 import com.rycka13.nutritionapp.model.data.Weight;
 import com.rycka13.nutritionapp.model.adapters.WeightListAdapter;
-import com.rycka13.nutritionapp.view.MainActivity;
 import com.rycka13.nutritionapp.view.SignInActivity;
 import com.rycka13.nutritionapp.viewModel.ProfileViewModel;
 

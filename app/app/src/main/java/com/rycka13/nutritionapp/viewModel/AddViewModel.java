@@ -8,22 +8,22 @@ import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.rycka13.nutritionapp.model.data.Food;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.instances.UserAuthInstance;
+import com.rycka13.nutritionapp.model.instances.DataRepository;
+import com.rycka13.nutritionapp.model.instances.UserRepository;
 
 public class AddViewModel extends AndroidViewModel {
 
-    private DatabaseInstance databaseInstance;
-    private final UserAuthInstance userAuthInstance;
+    private DataRepository dataRepositoryInterface;
+    private final UserRepository userRepository;
 
     public AddViewModel(@NonNull Application application) {
         super(application);
-        userAuthInstance = UserAuthInstance.getInstance(application);
-        databaseInstance = DatabaseInstance.getInstance(userAuthInstance.getCurrentUser().getValue().getUid());
+        userRepository = UserRepository.getInstance(application);
+        dataRepositoryInterface = DataRepository.getInstance(userRepository.getCurrentUser().getValue().getUid());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addFood(Food food){
-        databaseInstance.addFood(food);
+        dataRepositoryInterface.addFood(food);
     }
 }

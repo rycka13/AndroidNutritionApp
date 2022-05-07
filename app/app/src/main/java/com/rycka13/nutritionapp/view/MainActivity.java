@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.rycka13.nutritionapp.view.fragments.AddFragment;
 import com.rycka13.nutritionapp.view.fragments.HomeFragment;
 import com.rycka13.nutritionapp.view.fragments.ListFragment;
@@ -20,8 +19,6 @@ import com.rycka13.nutritionapp.view.fragments.ProfileFragment;
 import com.rycka13.nutritionapp.view.fragments.SettingsFragment;
 import com.rycka13.nutritionapp.viewModel.MainActivityViewModel;
 import com.rycka13.nutritionapp.R;
-import com.rycka13.nutritionapp.model.instances.DatabaseInstance;
-import com.rycka13.nutritionapp.model.Model;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener{
