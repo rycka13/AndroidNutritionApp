@@ -21,6 +21,7 @@
  - [x] As a user, I want to be able to see my weight history, so I could see how it changes over time
  - [x] As a user, I want to be able to see all my personal data, such that I could see if it is correct
 #### Low priority requirements: ####
+ - [ ] As a user, I want to be able to remove food, in case I made a mistake when entering the food in
  - [ ] As a user, I want to be able to see recomendations for daily calorie intake
  - [ ] As a user, I want to be able to set a goal to either lose or gain weight
 
