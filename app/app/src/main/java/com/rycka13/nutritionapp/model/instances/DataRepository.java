@@ -27,13 +27,12 @@ public class DataRepository implements DataRepositoryInterface {
     private DatabaseDAO databaseDAO;
     private static DataRepository instance;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     private DataRepository(String userId) {
         databaseDAO = DatabaseDAO.getInstance(userId);
         databaseDAO.findUser();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public static DataRepository getInstance(String userId) {
         if (instance == null) {
             instance = new DataRepository(userId);
@@ -41,8 +40,6 @@ public class DataRepository implements DataRepositoryInterface {
         return instance;
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean addFood(Food food) {
         return databaseDAO.addFood(food);

@@ -32,4 +32,8 @@
     <string name="weekly_consumed_calories">Weekly consumed calories</string>
     <string name="no_data">No data</string>
     <string name="recent_foods">Recent foods</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="welcome_to_nutrition_app">Welcome to Nutrition App</string>
+    <string name="an_app_that_will_help_you_track_n_your_daily_calorie_intake">An app that will help you track \n your daily calorie intake</string>
+    <string name="track_your_food_with_ease">Track your food with ease</string>
 </resources>

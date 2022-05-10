@@ -71,11 +71,9 @@ public class DatabaseDAO {
         return true;
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean findUser() {
 
-        DocumentReference docIdRef = db.collection(foodsReference).document(userId); //https://stackoverflow.com/questions/53332471/checking-if-a-document-exists-in-a-firestore-collection
+        DocumentReference docIdRef = db.collection(foodsReference).document(userId);
         docIdRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -93,11 +91,7 @@ public class DatabaseDAO {
         return true;
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean addFood(Food food) {
-
-
         db.collection(foodsReference).addSnapshotListener((value, error) -> {
             for(DocumentChange dc : value.getDocumentChanges()){
                 if(dc.getType() == DocumentChange.Type.ADDED){
@@ -109,7 +103,8 @@ public class DatabaseDAO {
                     if(foods!=null) {
                         ArrayList<Food> foodsList = new ArrayList<>();
                         for (int i = 0; i < foods.size(); i++) {
-                            Food foodExtract = new Food((String) foods.get(i).get("foodName"), (Double) foods.get(i).get("caloriesPer100Grams"), (Double) foods.get(i).get("gramsConsumed"), (String) foods.get(i).get("date"));
+                            Food foodExtract = new Food((String) foods.get(i).get("foodName"),
+                                    (Double) foods.get(i).get("caloriesPer100Grams"), (Double) foods.get(i).get("gramsConsumed"), (String) foods.get(i).get("date"));
                             foodsList.add(foodExtract);
                         }
                         foodsList.add(0, food);

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 import androidx.annotation.RequiresApi;
@@ -42,8 +43,14 @@ public class SettingsFragment extends Fragment {
         EditText genderT = view.findViewById(R.id.setGender);
         EditText calorieLimitT = view.findViewById(R.id.setCalorieLimit);
 
+        settingsViewModel.getUserData().observe(getViewLifecycleOwner(),userParameters ->{
+            weightT.setHint(userParameters.getWeight().toString());
+            heightT.setHint(userParameters.getHeight().toString());
+            genderT.setHint(userParameters.getGender().toString());
+            calorieLimitT.setHint(userParameters.getLimit().toString());
+        });
+
         setButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
 
