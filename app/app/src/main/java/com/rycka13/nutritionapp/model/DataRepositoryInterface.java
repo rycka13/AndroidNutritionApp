@@ -10,11 +10,11 @@ import com.rycka13.nutritionapp.model.data.Weight;
 import java.util.ArrayList;
 
 public interface DataRepositoryInterface {
-    boolean addFood(Food food);
-    boolean removeFood(Food food);
+    void addFood(Food food);
+    void removeFood(Food food);
     LiveData<ArrayList<Food>> getFood();
-    boolean setUserParameters(double weight,double height,double limit,String gender);
+    void setUserParameters(double weight,double height,double limit,String gender);
     LiveData<User> getUserData();
-    boolean addUserWeight(Weight weight);
+    void addUserWeight(Weight weight);
     LiveData<ArrayList<Weight>> getUserWeight();
 }

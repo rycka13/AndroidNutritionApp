@@ -48,7 +48,7 @@ public class DatabaseDAO {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public boolean addUser() {
+    public void addUser() {
         ArrayList<Food> foods= new ArrayList<>();
         ArrayList<Weight> weights= new ArrayList<>();
 
@@ -68,10 +68,9 @@ public class DatabaseDAO {
         db.collection(parametersReference).document(userId).set(mapParameters);
         db.collection(weightsReference).document(userId).set(mapWeight);
 
-        return true;
     }
 
-    public boolean findUser() {
+    public void findUser() {
 
         DocumentReference docIdRef = db.collection(foodsReference).document(userId);
         docIdRef.get().addOnCompleteListener(task -> {
@@ -87,11 +86,9 @@ public class DatabaseDAO {
 
             }
         });
-
-        return true;
     }
 
-    public boolean addFood(Food food) {
+    public void addFood(Food food) {
         db.collection(foodsReference).addSnapshotListener((value, error) -> {
             for(DocumentChange dc : value.getDocumentChanges()){
                 if(dc.getType() == DocumentChange.Type.ADDED){
@@ -116,11 +113,9 @@ public class DatabaseDAO {
                 }
             }
         });
-
-        return true;
     }
 
-    public boolean removeFood(Food food) {
+    public void removeFood(Food food) {
         db.collection(foodsReference).addSnapshotListener((value, error) -> {
             for(DocumentChange dc : value.getDocumentChanges()){
                 if(dc.getType() == DocumentChange.Type.ADDED){
@@ -135,7 +130,6 @@ public class DatabaseDAO {
                 }
             }
         });
-        return true;
     }
 
     public LiveData<ArrayList<Food>> getFood() {
@@ -146,7 +140,7 @@ public class DatabaseDAO {
         return fr.getFoods();
     }
 
-    public boolean setUserParameters(double weight,double height,double limit,String gender){
+    public void setUserParameters(double weight,double height,double limit,String gender){
         HashMap<String,Object> map = new HashMap<>();
 
         map.put("weight",weight);
@@ -155,7 +149,6 @@ public class DatabaseDAO {
         map.put("gender",gender);
         db.collection(parametersReference).document(userId).set(map);
 
-        return true;
     }
 
     public LiveData<User> getUserData(){
@@ -167,7 +160,7 @@ public class DatabaseDAO {
         return uw;
     }
 
-    public boolean addUserWeight(Weight weight){
+    public void addUserWeight(Weight weight){
         db.collection(weightsReference).addSnapshotListener((value, error) -> {
             for(DocumentChange dc : value.getDocumentChanges()){
                 if(dc.getType() == DocumentChange.Type.ADDED){
@@ -192,7 +185,6 @@ public class DatabaseDAO {
             }
         });
 
-        return true;
     }
 
     public LiveData<ArrayList<Weight>> getUserWeight(){

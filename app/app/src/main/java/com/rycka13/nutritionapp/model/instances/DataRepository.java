@@ -41,13 +41,13 @@ public class DataRepository implements DataRepositoryInterface {
     }
 
     @Override
-    public boolean addFood(Food food) {
-        return databaseDAO.addFood(food);
+    public void addFood(Food food) {
+        databaseDAO.addFood(food);
     }
 
     @Override
-    public boolean removeFood(Food food) {
-        return databaseDAO.removeFood(food);
+    public void removeFood(Food food) {
+        databaseDAO.removeFood(food);
     }
 
     @Override
@@ -56,8 +56,8 @@ public class DataRepository implements DataRepositoryInterface {
     }
 
     @Override
-    public boolean setUserParameters(double weight, double height, double limit, String gender) {
-        return databaseDAO.setUserParameters(weight, height, limit, gender);
+    public void setUserParameters(double weight, double height, double limit, String gender) {
+        databaseDAO.setUserParameters(weight, height, limit, gender);
     }
 
     @Override
@@ -66,8 +66,8 @@ public class DataRepository implements DataRepositoryInterface {
     }
 
     @Override
-    public boolean addUserWeight(Weight weight) {
-        return databaseDAO.addUserWeight(weight);
+    public void addUserWeight(Weight weight) {
+        databaseDAO.addUserWeight(weight);
     }
 
     @Override
