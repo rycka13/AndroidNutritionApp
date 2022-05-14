@@ -2,6 +2,9 @@
  
  This app will help people to track their daily calorie intake and learn about their diet. It will also let people to track their weight changes according to change in the diet and food intake.
  
+ App demonstrational video:
+ https://youtu.be/7xhaTGcL9jE
+ 
  ### Requerments for the app: ###
  
  #### Critical requirements: ####
@@ -25,3 +28,4 @@
  - [ ] As a user, I want to be able to see recomendations for daily calorie intake
  - [ ] As a user, I want to be able to set a goal to either lose or gain weight
 
+For code advice and inspiration - thanks Kasper Knop Rasmussen
